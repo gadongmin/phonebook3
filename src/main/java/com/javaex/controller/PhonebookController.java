@@ -87,7 +87,7 @@ public class PhonebookController extends HttpServlet {
 			System.out.println("삭제");
 			
 			//파라미터에서  no 꺼내온다
-			int no =  Integer.parseInt(request.getParameter("personId"));
+			int no =  Integer.parseInt(request.getParameter("no"));
 			
 			//dao를 통해서 no를 주고 삭제
 			PhonebookDAO phonebookDAO= new PhonebookDAO();
@@ -99,12 +99,17 @@ public class PhonebookController extends HttpServlet {
 			
 		}else if("mform".equals(action)) { //수정폼업무
 			System.out.println("수정폼");
-	
-			//수정폼을 응답해야한다
-			//1)DB관련 할일이 없다 - 안하면된다
 			
-			//2)jsp에게 화면을 그리게 한다(포워드)
-			//modifyForm.jsp 포워드한다, 스테틱처리
+			//파라미터에서  no 꺼내온다
+			int no =  Integer.parseInt(request.getParameter("no"));
+			
+			//dao를 통해서 no를 주고 삭제
+			PhonebookDAO phonebookDAO= new PhonebookDAO();
+			PersonVO personVO= phonebookDAO.personSelectOne(no);
+			
+			//request객체에 데이터를 넣어준다
+			request.setAttribute("pVO", personVO);
+
 			WebUtil.forword(request, response, "/WEB-INF/views/modifyForm.jsp");
 			// RequestDispatcher rd = request.getRequestDispatcher("/modifyForm.jsp");
 			// rd.forward(request, response);
@@ -113,13 +118,13 @@ public class PhonebookController extends HttpServlet {
 			System.out.println("수정");
 			
 			//파라미터4개 꺼내기
+			int no = Integer.parseInt(request.getParameter("no"));
 			String name = request.getParameter("name");
 			String hp =  request.getParameter("hp");
 			String company = request.getParameter("company");
-			int personId = Integer.parseInt(request.getParameter("person_id"));
 			
 			//데이터를 묶는다
-			PersonVO personVO = new PersonVO(name, hp, company, personId);
+			PersonVO personVO = new PersonVO(no, name, hp, company);
 			System.out.println(personVO);
 			
 			//DAO를 통해서 저장시키기

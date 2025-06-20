@@ -32,10 +32,10 @@
 				<tr>
 				<tr>
 					<td>
-						<a href="/pbook3/pbc?action=mform">[수정폼으로 이동]</a>
+						<a href="/pbook3/pbc?action=mform&no=${personVO.personId }">[수정폼으로 이동]</a>
 				    </td>
 					<td>
-						<a href="/pbook3/pbc?action=delete&personId=${personVO.personId}">[삭제]</a>
+						<a href="/pbook3/pbc?action=delete&no=${personVO.personId}">[삭제]</a>
 					</td>
 				<tr>
 			</tbody>
